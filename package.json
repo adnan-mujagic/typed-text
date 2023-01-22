@@ -1,6 +1,9 @@
 {
-  "name": "typed-text",
-  "version": "0.0.1",
+  "name": "@adnan-mujagic/typed-text",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/adnan-mujagic"
+  },
+  "version": "0.0.2",
   "description": "This is a react library with a component that simulates typing",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
