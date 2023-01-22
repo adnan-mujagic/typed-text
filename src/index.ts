@@ -1,1 +1,3 @@
-export * from "./components";
+import TypedText from './components/TypedText'
+
+export { TypedText }
