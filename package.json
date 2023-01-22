@@ -3,7 +3,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/adnan-mujagic"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "This is a react library with a component that simulates typing",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
