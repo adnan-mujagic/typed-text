@@ -36,4 +36,5 @@ function MyComponent(props) {
 ## Properties
 
 `sentences: string[]` - an array of strings representing the sentences that will interchangably be typed onto the screen
+
 `style: CSSProperties` - any style that you would like the text component to have.
