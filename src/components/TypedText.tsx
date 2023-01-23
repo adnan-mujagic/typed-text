@@ -2,7 +2,11 @@ import React, { useEffect, useState, CSSProperties } from 'react'
 
 export interface TypedTextProps {
   sentences: string[]
-  style: CSSProperties
+  style?: CSSProperties
+  loop?: boolean
+  typeTime?: number
+  waitTime?: number
+  deleteTime?: number
 }
 
 enum Direction {
@@ -21,48 +25,75 @@ const TypedText: React.FC<TypedTextProps> = (props) => {
     setTimeout(() => {
       setDisplayedText(displayedText + currentSentence[index])
       setIndex(index + 1)
-    }, 40)
+    }, props.typeTime)
   }
 
-  const deletePreviousCharacter = (timeout = 8) => {
+  const deletePreviousCharacter = (timeout = props.deleteTime) => {
     setTimeout(() => {
       setDisplayedText(displayedText.substring(0, index - 1))
       setIndex(index - 1)
     }, timeout)
   }
 
-  const startNewSentence = (timeout = 1200) => {
+  const startNewSentence = () => {
+    startSentence(sentenceIndex + 1, props.waitTime)
+  }
+
+  const startFirstSentence = () => {
+    startSentence(0, props.typeTime)
+  }
+
+  const startSentence = (wantedSentenceIndex: number, timeout?: number) => {
     setTimeout(() => {
       setDirection(Direction.RIGHT)
-      setCurrentSentence(props.sentences[sentenceIndex + 1])
-      setSentenceIndex(sentenceIndex + 1)
-      setIndex(index + 1)
+      setCurrentSentence(props.sentences[wantedSentenceIndex])
+      setSentenceIndex(wantedSentenceIndex)
+      setIndex(0)
     }, timeout)
   }
 
+  const handleLastSentenceFinished = () => {
+    if (props.loop) {
+      startDeletingSentence()
+    }
+  }
+
+  const startDeletingSentence = () => {
+    setDirection(Direction.LEFT)
+    deletePreviousCharacter(props.waitTime)
+  }
+
+  const handleSentenceDeleted = () => {
+    if (props.loop && sentenceIndex === props.sentences.length - 1) {
+      startFirstSentence()
+    } else {
+      startNewSentence()
+    }
+  }
+
   useEffect(() => {
-    console.log(index, currentSentence.length)
     if (index === currentSentence.length && sentenceIndex === props.sentences.length - 1) {
-      return
+      handleLastSentenceFinished()
     } else if (direction === Direction.RIGHT && index < currentSentence.length) {
       typeNextCharacter()
     } else if (direction === Direction.RIGHT && index === currentSentence.length) {
-      if (props.sentences.length - 1 === sentenceIndex) {
-        return
-      } else {
-        setDirection(Direction.LEFT)
-        deletePreviousCharacter(1200)
-      }
+      startDeletingSentence()
     } else if (direction === Direction.LEFT && index >= 0) {
       deletePreviousCharacter()
     } else if (direction === Direction.LEFT && index === -1) {
-      startNewSentence()
+      handleSentenceDeleted()
     }
   }, [index])
 
-  console.log('Rendering...')
-
   return <div style={props.style}>{displayedText}</div>
+}
+
+TypedText.defaultProps = {
+  loop: false,
+  style: {},
+  deleteTime: 8,
+  typeTime: 40,
+  waitTime: 1200,
 }
 
 export default TypedText
