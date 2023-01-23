@@ -1,6 +1,6 @@
 {
   "name": "typed-textfield",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "This is a react library with a component that simulates typing",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",

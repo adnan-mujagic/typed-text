@@ -35,6 +35,14 @@ function MyComponent(props) {
 
 ## Properties
 
-`sentences: string[]` - an array of strings representing the sentences that will interchangably be typed onto the screen
+`sentences: string[]` - an array of strings representing the sentences that will interchangably be typed onto the screen.
 
-`style: CSSProperties` - any style that you would like the text component to have.
+`style?: CSSProperties` - any style that you would like the text component to have.
+
+`loop?: boolean` - whether the sentences should repeat after the final one is reached. Default is `false`.
+
+`typeTime?: number` - the time in milliseconds it takes to type a new character. Default is `40`.
+
+`waitTime?: number` - the time in milliseconds waited before a deletion of a sentence begins. Default is `1200`.
+
+`deleteTiime?: number` - the time in milliseconds necessary to delete a single character. Default is `8`.
