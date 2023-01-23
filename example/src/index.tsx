@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { TypedText } from '@adnan-mujagic/typed-text'
+import { TypedText } from 'typed-textfield'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
